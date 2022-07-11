@@ -1,0 +1,90 @@
+#spring boot 서버 주소와 포트 입력
+  server.address=localhost
+  server.port=3000
+
+  #콘솔에 SQL문을 출력해줄지 말지 결정
+  spring.jpa.show-sql=true
+
+  #DDL 데이터베이스 기능 사용
+  spring.jpa.generate-ddl=true
+
+  #Postgresql
+  spring.jpa.database=postgresql
+
+  #DBNAME = db이름, username, password입력
+  spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+  spring.datasource.username=dev
+  spring.datasource.password=dev
+  spring.datasource.driver-class-name=org.postgresql.Driver
+  #spring.datasource.driver-class-name=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+  spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults=false
+  spring.jpa.properties.hibernate.format_sql=false
+
+  spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /petra
+
+#spring:
+# datasource:
+#  for:
+#   mybatis:
+#    url: jdbc:postgresql://localhost:5432/study
+#    username: dev
+#    password: dev
+#   jpa:
+#    url: jdbc:postgresql://localhost:5432/study
+#    username : dev
+#    password : dev
+
+spring:
+  datasource:
+    for:
+      mybatis:
+        url: jdbc:postgresql://192.168.10.199:5432/postgres
+        username: sinsiway
+        password: petra@one1
+      jpa:
+        url: jdbc:postgresql://192.168.10.199:5432/postgres
+        username : sinsiway
+        password : petra@one1
+
+#JPA
+# JPA 자동화 생성 전략(generate-ddl)
+#   none: 자동 생성하지 않음
+#   create: 항상 다시 생성
+#   create-drop: 시작 시 생성 후 종료 시 제거
+#   update: 시작 시 Entity 클래스와 DB 스키마 구조를 비교해서 DB쪽에 생성되지 않은 테이블, 컬럼 추가 (제거는 하지 않음)
+#   validate: 시작 시 Entity 클래스와 DB 스키마 구조를 비교해서 같은지만 확인 (다르면 예외 발생)
+# JPA SQL 표시 여부(show-sql)
+#   true or false
+# JPA SQL 표시 여부(show-sql)
+#   true or false
+
+jpa:
+  properties:
+    dialect : org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      format_sql: false     # 쿼리 정렬 여부
+  show-sql: true            # 쿼리 표시 여부
+  generate-ddl: none    # 시작시점에 @Entity 관련 테이블 DDL문 생성하여 DB 적용
+
+logging:
+  config: classpath:log4j2.xml
+
+#######################################
+
+# 마스터 세션의 DBCP 설정
+dbcp:
+  init:
+    size: 1
+  total:
+    max: 8
+  idle:
+    max: 9
+    min: 1

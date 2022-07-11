@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+    <Properties>
+        <Property name="BASE_DIR">./logs</Property>
+        <Property name="LOG_FORMAT">%style{[%d{yyyy-MM-dd HH:mm:ss}]}{cyan} %highlight{[%5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} %style{[%t]}{cyan} %logger{36}(%F:%L) - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_FORMAT}" disableAnsi = "false"/>
+        </Console>
+
+        <!-- File 설정 (로그 파일 저장할 경우 주석 해제)-->
+        <!--          <RollingFile name="File" fileName="${BASE_DIR}/logfile.log" filePattern="${BASE_DIR}/logfile.%d{yyyy-MM-dd}_%i.zip"> -->
+        <!--             <PatternLayout pattern="${LOG_FORMAT}" /> -->
+        <!--              <Policies> -->
+        <!--                 <TimeBasedTriggeringPolicy modulate="true" interval="1" />시간별 로그 파일 생성 -->
+        <!--             </Policies> -->
+        <!-- <DefaultRolloverStrategy max="5" fileIndex="min" /> --><!-- 롤링 파일 5개 까지 생성 -->
+        <!--         </RollingFile> -->
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.sinsiway.petra" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <!--             <AppenderRef ref="File"/> -->
+        </Logger>
+
+        <!--
+        	jdbc connection 관련 open / close 로그 출력
+        -->
+        <Logger name="jdbc.connection" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+        	jdbc resultset을 제외한 모든 jdbc 호출 정보 로그 출력
+			대량의 로그 발생으로 사용 안함을 권장
+		-->
+        <Logger name="jdbc.audit" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+			SQL문장 및 수행 시간 로그 출력
+		-->
+        <Logger name="jdbc.sqltiming" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+			SQL 문장 로그 출력 ( 위의 jdbc.sqltiming 옵션 사용중이므로 제외 )
+		-->
+        <Logger name="jdbc.sqlonly" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+        	jdbc resultset을 포함한 모든 jdbc 호출 정보 로그 출력
+			대량의 로그 발생으로 사용 안함을 권장
+		-->
+        <Logger name="jdbc.resultset" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+        	jdbc 조회 결과 로그 출력
+         -->
+        <Logger name="jdbc.resultsettable" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <!--             <AppenderRef ref="File"/> -->
+        </Root>
+    </Loggers>
+</Configuration>
