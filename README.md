@@ -1,1 +1,3 @@
-# spring-data-rest
+# Spring Data Rest
+
+1. JPA
